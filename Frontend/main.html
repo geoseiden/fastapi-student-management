@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>FastAPI AngularJS App</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+</head>
+<body>
+    <h1>Acedemics Management System Using FastAPI and MySQL</h1>
+    <div class="section-container">
+    <div ng-controller="MentorsController">
+        <h2>MENTOR MANAGEMENT</h2>
+        <button ng-click="openAddMentorPopup()" class="add-button">Add Mentor</button>
+
+        <!-- Modal for adding mentors -->
+        <div id="addMentorModal" class="modal">
+            <div class="modal-content">
+                <span class="close" ng-click="closeAddMentorPopup()">&times;</span>
+                <h3>Add Mentor</h3>
+                <form ng-submit="addMentor()">
+                    <label for="empid">EmpID:</label>
+                    <input type="text" id="empid" ng-model="newMentor.empid" required><br>
+
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" ng-model="newMentor.name" required><br>
+
+                    <label for="desig">Designation:</label>
+                    <input type="text" id="desig" ng-model="newMentor.desig" required><br>
+
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" ng-model="newMentor.email" required><br>
+
+                    <label for="ph">Phone:</label>
+                    <input type="text" id="ph" ng-model="newMentor.ph" required><br>
+
+                    <label for="password">Password:</label>
+                    <input type="text" id="password" ng-model="newMentor.password" required><br>
+
+                    <button type="submit" class="add-button">Add</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal for editing mentors -->
+        <div id="editMentorModal" class="modal">
+            <div class="modal-content">
+                <span class="close" ng-click="closeEditMentorPopup()">&times;</span>
+                <h3>Edit Mentor</h3>
+                <form ng-submit="updateMentor()">
+                    <label for="empid">EmpID:</label>
+                    <input type="text" id="empid" ng-model="selectedMentor.empid" required><br>
+
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" ng-model="selectedMentor.name" required><br>
+
+                    <label for="desig">Designation:</label>
+                    <input type="text" id="desig" ng-model="selectedMentor.desig" required><br>
+
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" ng-model="selectedMentor.email" required><br>
+
+                    <label for="ph">Phone:</label>
+                    <input type="text" id="ph" ng-model="selectedMentor.ph" required><br>
+
+                    <button type="submit" class="update-button">Update</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Table to display mentors -->
+        <div class="table-container">
+        <table>
+            <tr>
+                <th>EmpID</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-repeat="mentor in mentors">
+                <td>{{ mentor.empid }}</td>
+                <td>{{ mentor.name }}</td>
+                <td>{{ mentor.desig }}</td>
+                <td>{{ mentor.email }}</td>
+                <td>{{ mentor.ph }}</td>
+                <td>
+                    <a ng-click="editMentor(mentor)" class="edit-button">Edit</a>
+                    <a class="delete-link" ng-click="deleteMentor(mentor)">Delete</a>
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+</div>
+<div class="section-container">
+    <div ng-controller="StudentsController">
+        <h2>STUDENT MANAGEMENT</h2>
+        <button ng-click="openAddStudentPopup()" class="add-button">Add Student</button>
+    
+        <!-- Modal for adding students -->
+        <!-- Modal for adding students -->
+    <!-- Modal for adding students -->
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" ng-click="closeAddStudentPopup()">&times;</span>
+            <h3>Add Student</h3>
+            <form ng-submit="addStudent()" class="form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" ng-model="newStudent.name" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="regno">Reg No:</label>
+                    <input type="text" id="regno" ng-model="newStudent.regno" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" ng-model="newStudent.email" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" ng-model="newStudent.phone" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="programme">Program:</label>
+                    <input type="text" id="programme" ng-model="newStudent.programme" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="score">CGPA:</label>
+                    <input type="text" id="score" ng-model="newStudent.score" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="empid">Mentor ID:</label>
+                    <input type="text" id="empid" ng-model="newStudent.empid" required>
+                </div>
+    
+                <button type="submit" class="add-button">Add</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal for editing students -->
+    <div id="editStudentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" ng-click="closeEditStudentPopup()">&times;</span>
+            <h3>Edit Student</h3>
+            <form ng-submit="updateStudent()" class="form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" ng-model="selectedStudent.name" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="regno">Reg No:</label>
+                    <input type="text" id="regno" ng-model="selectedStudent.regno" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" ng-model="selectedStudent.email" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" ng-model="selectedStudent.phone" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="programme">Program:</label>
+                    <input type="text" id="programme" ng-model="selectedStudent.programme" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="score">CGPA:</label>
+                    <input type="text" id="score" ng-model="selectedStudent.score" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="empid">Mentor ID:</label>
+                    <input type="text" id="empid" ng-model="selectedStudent.empid" required>
+                </div>
+    
+                <button type="submit" class="update-button">Update</button>
+            </form>
+        </div>
+    </div>
+        <div class="table-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Reg No</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Program</th>
+                <th>CGPA</th>
+                <th>Mentor ID</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-repeat="student in students">
+                <td>{{ student.name }}</td>
+                <td>{{ student.regno }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.phone }}</td>
+                <td>{{ student.programme }}</td>
+                <td>{{ student.score/10 }}</td>
+                <td>{{ student.empid }}</td>
+                <td>
+                    <a ng-click="editStudent(student)" class="edit-button">Edit</a>
+                    <a class="delete-link" ng-click="deleteStudent(student)">Delete</a>
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+</div>
+    <script src="./script.js"></script>
+</body>
+</html>
